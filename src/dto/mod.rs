@@ -1,12 +1,20 @@
 use serde::{Deserialize, Serialize};
 
-#[derive(Serialize, Deserialize)]
-pub struct CreateTodoDto {
-    pub name: String,
+pub mod todo;
+
+#[derive(Debug, Serialize, Deserialize)]
+pub struct PaginationParams {
+    pub page: Option<u64>,
 }
 
-#[derive(Serialize, Deserialize)]
-pub struct UpdateTodoDto {
-    pub name: String,
-    pub is_finish: bool,
+#[derive(Debug, Serialize, Deserialize)]
+pub struct PaginationResult<T> {
+    datalist: T,
+    total: u64,
+}
+
+impl<T> PaginationResult<T> {
+    pub fn new(datalist: T, total: u64) -> Self {
+        PaginationResult { datalist, total }
+    }
 }
